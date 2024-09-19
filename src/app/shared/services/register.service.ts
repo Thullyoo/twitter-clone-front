@@ -12,7 +12,7 @@ export class RegisterService {
   private HttpClient = inject(HttpClient);
 
   public onRegister(request: RegisterRequest ){
-    this.HttpClient.post(this.url + "/register", request);
+    return this.HttpClient.post(this.url + "/register", request);
   }
   
 }
