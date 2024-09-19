@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../shared/services/login.service';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import JwtResponse from './interfaces/JwtResponse';
@@ -16,6 +16,8 @@ export class LoginComponent {
   private loginService = inject(LoginService);
 
   private formBuilder = inject(FormBuilder);
+
+  private router = inject(Router);
 
   protected form = this.formBuilder.group({
     username: new FormControl<string>("", {validators: Validators.required, nonNullable: true}),
@@ -34,7 +36,15 @@ export class LoginComponent {
       next: (res) => {
         jwt.acessToken = res.acessToken;
         jwt.expiresAt = res.expiresAt;
-        console.log(jwt);
+        
+        localStorage.setItem("authToken", jwt.acessToken);
+        this.router.navigateByUrl("/home").then(success =>{
+          if (!success) {
+            console.log("Navegação falhou.");
+          }
+        }).catch(err => {
+          console.log("Erro ao navegar: ", err);
+        });
       },
       error: (error) =>{
         console.log(error)
