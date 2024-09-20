@@ -10,6 +10,6 @@ import Tweet from './interfaces/Tweet';
 })
 export class TweetCardComponent {
 
-  protected tweet = input.required<Tweet>();
+  public tweet = input.required<Tweet>();
 
 }
