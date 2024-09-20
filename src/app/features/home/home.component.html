@@ -3,7 +3,7 @@
         <h1>Escreva seu Tweet: </h1>
         <input type="text">
         @for (tweet of tweets; track $index) {
-            
+            <app-tweet-card [tweet]="tweet"></app-tweet-card>
         }
     </div>
 </div>
